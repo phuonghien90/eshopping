@@ -1,0 +1,2 @@
+rootProject.name = 'eshopping'
+include ':db', ':api'

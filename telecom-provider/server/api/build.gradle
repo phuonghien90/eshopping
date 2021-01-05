@@ -1,0 +1,77 @@
+import org.springframework.boot.gradle.run.BootRunTask
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "io.spring.gradle:dependency-management-plugin:$springDependencyGradleVersion"
+        classpath "org.yaml:snakeyaml:$snakeyamlVersion"
+        classpath "org.asciidoctor:asciidoctor-gradle-plugin:$asciidoctorGradleVersion"
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+
+jar {
+    baseName = 'server'
+}
+
+dependencies {
+
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-cache"
+        
+    compile "com.google.guava:guava:$guavaVersion"
+    compile "org.apache.commons:commons-lang3:$lang3Version"
+    compile "org.apache.httpcomponents:httpclient:4.5.7"
+    compile "com.github.ben-manes.caffeine:caffeine:$caffeineVersion"	
+	compile "com.zaxxer:HikariCP:$hikariCPVersion"
+    compile "mysql:mysql-connector-java:$mysqlConnectorVersion"
+    compile "org.jooq:jooq:$jooqVersion"
+    compile "com.auth0:java-jwt:3.12.0"
+    
+    compile "org.hibernate:hibernate-java8:5.0.11.Final"    
+    
+    compile "org.apache.kafka:kafka_2.13:$kafkaVersion"
+    compile "org.apache.kafka:kafka-clients:$kafkaVersion"
+    
+    compile "com.fasterxml.jackson.module:jackson-module-parameter-names:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-guava:$jacksonVersion"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+
+	compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-web:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-1.2-api:$log4j2Version"
+    compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+    compile "org.slf4j:jul-to-slf4j:$slf4jVersion"
+    compile "com.lmax:disruptor:$disruptorVersion"     
+}
+
+bootRepackage {
+    mainClass = 'com.hien.telecom.api.Application'
+}
+
+springBoot {
+    mainClass = 'com.hien.telecom.api.Application'
+}
+
+if(project.ext.has('env')) {
+    sourceSets.main.resources.srcDir "../configs/build-profiles/$env"
+}
+
+tasks.withType(BootRunTask) {
+    systemProperty('spring.profiles.active', 'dev')
+    systemProperty('module', 'server')
+}

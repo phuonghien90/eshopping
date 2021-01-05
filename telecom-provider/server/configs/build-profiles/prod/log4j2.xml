@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Appenders>
+		<Logstash name="logstash" logstashHost="45.76.151.2"
+			logstashPort="5044">
+		</Logstash>
+		<Console name="console" target="SYSTEM_OUT" ignoreExceptions="false">
+			<PatternLayout pattern="%d{ISO8601} server %-5p %c{3}: %m%n"/>
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<asyncRoot level="info">
+			<AppenderRef ref="logstash" />
+			<AppenderRef ref="console" />
+		</asyncRoot>
+	</Loggers>
+</Configuration>

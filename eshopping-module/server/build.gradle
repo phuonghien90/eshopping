@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "io.spring.gradle:dependency-management-plugin:$springDependencyGradleVersion"
+        classpath "org.yaml:snakeyaml:$snakeyamlVersion"
+    }
+}
+
+
+plugins {
+    id 'net.researchgate.release' version '2.3.4'
+}
+
+project.ext.env = project.hasProperty('env') ? project.ext.env : 'dev'
+
+allprojects {
+    group 'com.hien.eshopping'
+    version = version
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+    configurations.all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.springframework.boot', module: 'logback-classic'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4'
+}
+
+afterReleaseBuild.dependsOn uploadArchives
+
+String prefix = projectDir.parentFile.name
+allprojects { p ->
+   apply plugin: 'eclipse' 
+   eclipse.project.name = "${prefix}-${p.name}"
+}

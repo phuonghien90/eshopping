@@ -1,0 +1,23 @@
+*.iml
+.idea
+.gradle
+*/build/
+build/
+*/classes/
+classes/
+*.ipr
+*.iws
+
+gradle-local.properties
+
+*.class
+*.project
+*.classpath
+**/bin
+**/.settings
+.settings
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+client/node_modules
+server/api/.sts4-cache

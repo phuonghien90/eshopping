@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Appenders>
+		<Logstash name="logstash" logstashHost="45.76.151.2"
+			logstashPort="5044">
+		</Logstash>
+	</Appenders>
+
+	<Loggers>
+		<asyncRoot level="info">
+			<AppenderRef ref="logstash" />
+		</asyncRoot>
+	</Loggers>
+</Configuration>

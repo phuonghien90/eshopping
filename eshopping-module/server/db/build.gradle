@@ -1,0 +1,39 @@
+buildscript {
+    dependencies {
+        classpath 'org.liquibase:liquibase-gradle-plugin:1.2.1'
+        classpath 'mysql:mysql-connector-java:8.0.22'
+        classpath 'org.yaml:snakeyaml:1.17'
+    }
+}
+
+plugins {
+    id 'org.liquibase.gradle' version '1.2.1'
+}
+
+apply plugin: 'liquibase'
+
+def masterChangeLog = "$projectDir/src/main/changelogs/db.changelog-master.yaml"
+
+liquibase {
+    activities {
+        dev {
+            changeLogFile masterChangeLog
+            url "jdbc:mysql://localhost:3306/eshopping?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8"
+            username "root"
+            password "root"
+        }
+        prod {
+            changeLogFile masterChangeLog
+            url "jdbc:mysql://localhost:3306/eshopping?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8"
+            username "root"
+            password "hien"
+        }
+    }
+
+    runList = project.ext.has('env') ? project.ext.env : 'dev'
+}
+
+dependencies {
+    compile 'org.yaml:snakeyaml:1.18'
+    compile 'com.google.guava:guava:19.0'
+}

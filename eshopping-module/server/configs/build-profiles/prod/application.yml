@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: eshopping
+  profiles:
+    active: prod
+  cloud:
+    discovery:
+      client:
+        health-indicator:
+          enabled: true
+
+server:
+  port: 8080
+  context-path: /
+  tomcat:
+    max-threads: 1000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://hien-eureka:8761/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    appname: eshopping
+    non-secure-port: 8080
+    health-check-url-path: /health
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 15
+    
+kafka:
+  appId: eshopping
+  endpoint: hien-kafka:9092
+  sendSmsTopic: eshopping-sendSmsTopic
+
+db:
+  main:
+    host: hien-mysql
+    username: root
+    password: hien
+    name: eshopping
+    pool: 2
