@@ -19,7 +19,7 @@
 - Telecom provider: this is third party
 > Note: Currently client call directly to eshopping api. If have more time I will create API gateway use Netflix Zull to client call our system 
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/architecture.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/architecture.JPG)
 
 #### Description
 - Eshopping module, Billing service are same network and register to eureka server
@@ -29,45 +29,45 @@
 #### Source description
 - In all modules/services, I follow component based architecture
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/component-base-example.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/component-base-example.JPG)
 
 - I put helper classes in base package to share for multiple modules/services
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/base-class-example.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/base-class-example.JPG)
 
 - I put infrastructure in infra package
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/infra-example.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/infra-example.JPG)
 
 ### Flow
 
 #### Purchase voucher
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/purchase-flow.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/purchase-flow.JPG)
 
 #### Query voucher
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/query-flow.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/query-flow.JPG)
 
 #### Description
 - I used **two-phase commit pattern** to process purchase
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/2-phase-commit.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/2-phase-commit.JPG)
 
 - I used kafka as message queue in case sending sms
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/send-sms.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/send-sms.JPG)
 
 - There are cron job to clean expired order/transaction (**not yet implement inside**)
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/cron-job.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/cron-job.JPG)
 
 - To solve timeout problem (120s) when calling to third party, I **set connection timeout in request to third party is 120s** then I created a **Observable subscribe on a thread pool executor and blocking with timeout 30s** (following requirement). If timeout 30s reach, respond to client **waiting for sms**, and thread which call to third party keep running and send sms after done.
 > We can use other solution if third party support other pattern. I will talk later when take the interview.
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/timeout-30.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/timeout-30.JPG)
 
-![Architecture](https://bitbucket.org/bappro/nab-test/raw/8cebdc2d476e8852c312afe61b0ac14f6192cbba/timeout-120.JPG)
+![Architecture](https://github.com/phuonghien90/eshopping/raw/master/imgs/timeout-120.JPG)
 
 ### Setup eviroment and deploy
 ``` 
