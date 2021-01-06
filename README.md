@@ -2,13 +2,13 @@
 
 ### Please note
 - This is demo
-- Because time is limited (only 3 days), I try to show my knowledge as much as I can
+- Because time is limited (only 4 days), I try to show my knowledge as much as I can
 - Still have many TODO, I haven't done yet
 
 ### Technology
 - Spring boot
 - Discovery service: Eureka
-- Storate: Mysql
+- Storage: Mysql
 - Message Queue: Kafka
 - Log: ELK (**reuse my old ELK stack I built before**)
 - Others: Docker, Archaius (external configuration) , Liquid base (database changelog), Rx, auth0 (JWT token library)
